@@ -11,12 +11,15 @@ import { Product } from '../models/budget';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit{
-
+export class HomeComponent implements OnInit {
   products!: Product[];
-  totalPrice: number = 0;
-
-  budgetForm = new FormGroup({});
+  budgetForm: FormGroup = new FormGroup({});
+  formValues = signal(this.budgetForm.value);
+  totalPrice = computed(() => {
+    return this.products
+      .filter(product => this.formValues()[product.controlName])
+      .reduce((total, product) => total + product.price, 0);
+  });
 
   constructor(private budgetService: BudgetService) { }
 
@@ -28,14 +31,7 @@ export class HomeComponent implements OnInit{
     });
 
     this.budgetForm.valueChanges.subscribe(values => {
-      console.log(values);
-      this.calculateTotalPrice();
+      this.formValues.set(values);
     });
-  }
-
-  calculateTotalPrice() {
-    this.totalPrice = this.products
-      .filter(product => this.budgetForm.get(product.controlName)?.value)
-      .reduce((total, product) => total + product.price, 0);
   }
 }
