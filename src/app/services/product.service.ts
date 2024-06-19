@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../models/budget';
+import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BudgetService {
+export class ProductService {
 
   constructor() { }
 

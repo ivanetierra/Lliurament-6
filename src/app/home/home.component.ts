@@ -1,7 +1,7 @@
 import { Component, OnInit, Signal, computed, inject, signal } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { BudgetService } from '../services/budget.service';
-import { Product } from '../models/budget';
+import { ProductService } from '../services/product.service';
+import { Product } from '../models/product';
 
 
 @Component({
@@ -21,10 +21,10 @@ export class HomeComponent implements OnInit {
       .reduce((total, product) => total + product.price, 0);
   });
 
-  constructor(private budgetService: BudgetService) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    this.products = this.budgetService.getProducts();
+    this.products = this.productService.getProducts();
 
     this.products.forEach(product => {
       this.budgetForm.addControl(product.controlName, new FormControl(false));
