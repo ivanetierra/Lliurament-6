@@ -1,26 +1,29 @@
-<form [formGroup]="budgetForm">
-  @for (product of products; track product.title) {
-  <div class="card m-3 p-5 rounded-5 fw-bold">
-    <div class="row align-items-center">
-      <div class="col-sm-6">
-        <h3><b>{{ product.title }}</b></h3>
-        <p>{{product.description}}</p>
-      </div>
-      <div class="col-sm-4 text-center">
-        <h2 class="price"><b>{{ product.price }}€</b></h2>
-      </div>
-      <div class="col-sm-2 text-center">
-        <label [for]="product.controlName" class="add">
-          <input id="{{ product.controlName }}" type="checkbox" [formControlName]="product.controlName"/>
-          Afegir
-        </label>
-      </div>
-    </div>
-    
+<div class="container d-flex justify-content-center">
+  <div class="col-md-8">
+    <form [formGroup]="budgetForm">
+      @for (product of products; track product.title) {
+        <div class="card m-3 p-5 rounded-5 shadow fw-bold">
+          <div class="row align-items-center">
+            <div class="col-sm-6 text-center text-sm-start">
+              <h3><b>{{ product.title }}</b></h3>
+              <p>{{product.description}}</p>
+            </div>
+            <div class="col-6 col-sm-4 text-center">
+              <h2 class="price"><b>{{ product.price }}€</b></h2>
+            </div>
+            <div class="col-6 col-sm-2 text-center">
+              <label [for]="product.controlName">
+                <input id="{{ product.controlName }}" type="checkbox" [formControlName]="product.controlName"/>
+                Afegir
+              </label>
+            </div>
+          </div>
+        </div>
+      } 
+    </form>
+  <div class="p-5 text-end">
+      <h2><b>Preu pressuposat: {{ totalPrice() }}€</b></h2>
   </div>
-  }
-</form>
-
-<div class="p-5 text-end">
-  <h2><b>Preu pressuposat: {{ totalPrice() }}€</b></h2>
+  </div>
 </div>
+
